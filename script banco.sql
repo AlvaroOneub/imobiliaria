@@ -18,7 +18,7 @@ email VARCHAR(255) NOT NULL UNIQUE,
 telefone VARCHAR(25) NOT NULL UNIQUE,
 dia_repasse CHAR(2),
 cidade varchar(30),
-uf varchar(2),
+uf varchar(2)
 ) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE agenciadores(
@@ -26,8 +26,7 @@ id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 creci varchar(10) NOT NULL,
 nome varchar(255) NOT NULL,
 email VARCHAR(255) NOT NULL UNIQUE,
-telefone VARCHAR(25) NOT NULL UNIQUE,
-dia_repasse CHAR(2)
+telefone VARCHAR(25) NOT NULL UNIQUE
 ) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE imoveis(
