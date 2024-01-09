@@ -20,6 +20,12 @@
       <li class="nav-item">
         <a class="nav-link " href="contratos.php">Contratos</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link " href="agenciadores.php">Agenciadores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="imoveis-desafio.php">Imoveis Desafio</a>
+      </li>
     </ul>
   </div>
 </nav>

@@ -40,8 +40,10 @@ class Core{
 
                 //Verifica método
                 switch($requestMethod){
-                    case "GET":
+                    case "GET":              
                         $this->metodo = "find";
+                        if($url[0] == 'desafio')
+                            $this->metodo = "desafio";
                         break;
                     case "POST":
                         $this->metodo = "create";

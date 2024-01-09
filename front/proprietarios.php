@@ -22,6 +22,14 @@
         <label for="dia_repasse">Dia repasse</label>
         <input type="text" name="dia_repasse" class="form-control" id="dia_repasse" required>
       </div>
+      <div class="form-group">
+        <label for="cidade">Cidade</label>
+        <input type="text" name="cidade" class="form-control" id="cidade" required>
+      </div>
+      <div class="form-group">
+        <label for="UF">UF</label>
+        <input type="text" name="UF" class="form-control" id="UF" required>
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
@@ -35,6 +43,8 @@
           <th scope="col">email</th>
           <th scope="col">telefone</th>
           <th scope="col">Dia repasse</th>
+          <th scope="col">Cidade</th>
+          <th scope="col">UF</th>
           <th scope="col">Apagar</th>
         </tr>
       </thead>
@@ -71,17 +81,23 @@
               let tdEmail = document.createElement("td")
               let tdTelefone = document.createElement("td")
               let tdDiaRepasse = document.createElement("td")
+              let tdCidade = document.createElement("td")
+              let tdUF = document.createElement("td")
               let tdApagar = document.createElement("td")
               let btnApagar = document.createElement('button')
               trElement.id = "proprietario_" + proprietario.id
               trElement.dataset.id =  proprietario.id
               trElement.dataset.email =  proprietario.email
               trElement.dataset.telefone =  proprietario.telefone
+              trElement.dataset.cidade =  proprietario.cidade
+              trElement.dataset.uf =  proprietario.uf
               tdId.innerHTML = proprietario.id
               tdNome.innerHTML= proprietario.nome
               tdEmail.innerHTML= proprietario.email
               tdDiaRepasse.innerHTML = proprietario.dia_repasse
               tdTelefone.innerHTML = proprietario.telefone
+              tdCidade.innerHTML = proprietario.cidade
+              tdUF.innerHTML = proprietario.uf
               tdApagar.appendChild(btnApagar)
               btnApagar.innerHTML = "APAGAR"
               btnApagar.dataset.proprietario_id = proprietario.id
@@ -93,6 +109,8 @@
               trElement.appendChild(tdEmail)
               trElement.appendChild(tdTelefone)
               trElement.appendChild(tdDiaRepasse)
+              trElement.appendChild(tdCidade)
+              trElement.appendChild(tdUF)
               trElement.appendChild(tdApagar)
               tabelaProprietarios.appendChild(trElement) 
             })
@@ -133,12 +151,16 @@
               "nome" : "",
               "email": "",
               "telefone" : "",
-              "dia_repasse": ""
+              "dia_repasse": "",
+              "cidade": "",
+              "uf": ""
       }
       myJson.nome = this.nome.value
       myJson.email = this.email.value
       myJson.telefone = this.telefone.value
       myJson.dia_repasse = this.dia_repasse.value
+      myJson.cidade = this.cidade.value
+      myJson.uf = this.UF.value
         
       //console.log(myJson)
       cadastrarProprietario(myJson)

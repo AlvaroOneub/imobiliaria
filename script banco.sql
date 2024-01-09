@@ -16,6 +16,17 @@ id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 nome varchar(255) NOT NULL,
 email VARCHAR(255) NOT NULL UNIQUE,
 telefone VARCHAR(25) NOT NULL UNIQUE,
+dia_repasse CHAR(2),
+cidade varchar(30),
+uf varchar(2),
+) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE agenciadores(
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+creci varchar(10) NOT NULL,
+nome varchar(255) NOT NULL,
+email VARCHAR(255) NOT NULL UNIQUE,
+telefone VARCHAR(25) NOT NULL UNIQUE,
 dia_repasse CHAR(2)
 ) ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -23,8 +34,9 @@ CREATE TABLE imoveis(
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 endereco VARCHAR(255) NOT NULL,
 proprietario_id INT(6) UNSIGNED,
-CONSTRAINT FK_ProprietarioImovel FOREIGN KEY (proprietario_id)
-REFERENCES Proprietarios(id) ON DELETE CASCADE
+agenciador_id INT(6) UNSIGNED,
+CONSTRAINT FK_ProprietarioImovel FOREIGN KEY (proprietario_id) REFERENCES Proprietarios(id) ON DELETE CASCADE,
+CONSTRAINT FK_AgenciadorImovel FOREIGN KEY (agenciador_id) REFERENCES Proprietarios(id) ON DELETE CASCADE
 )ENGINE=INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE contratos(
@@ -62,11 +74,5 @@ data_vencimento DATE NOT NULL,
 FOREIGN KEY (mensalidade_id) REFERENCES mensalidades(id) ON DELETE CASCADE
 )ENGINE = INNODB CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO clientes(email, telefone) VALUES ('daniel_2bueno@hotmail.com', '21973816757');
+INSERT INTO clientes(email, telefone) VALUES ('alvaro@hotmail.com', '21988886959');
 INSERT INTO clientes(email, telefone) VALUES ('beltrano@hotmail.com', '987654321123');
-
-
-
-
-
-DROP DATABASE imobiliaria;

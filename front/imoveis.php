@@ -16,6 +16,11 @@
        <select class="form-select" aria-label="Selecione o proprietario" name="proprietarios" id="proprietarios">
       </select>
       </div>
+      <div class="form-group">
+        <label for="agenciador">agenciador</label>
+       <select class="form-select" aria-label="Selecione o agenciador" name="agenciadores" id="agenciadores">
+      </select>
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
@@ -27,6 +32,7 @@
           <th scope="col">codigo</th>
           <th scope="col">Endereço</th>
           <th scope="col">Proprietario</th>
+          <th scope="col">Agenciador</th>
           <th scope="col">Apagar</th>
         </tr>
       </thead>
@@ -42,6 +48,7 @@
 	(function() {
    		listarImoveis(0, 10)
       listarProprietarios(0, 1000)
+      listarAgenciadores(0, 1000)
 	})();
 
 	function listarImoveis(offset, limit){
@@ -62,15 +69,18 @@
               let tdId = document.createElement("td")
               let tdEndereco = document.createElement("td")
               let tdProprietario = document.createElement("td")
+              let tdAgenciador = document.createElement("td")
               let tdApagar = document.createElement("td")
               let btnApagar = document.createElement('button')
               trElement.id = "casa_" + casa.id
               trElement.dataset.id =  casa.id
               trElement.dataset.endereco =  casa.endereco
               trElement.dataset.proprietario =  casa.proprietario
+              trElement.dataset.agenciador =  casa.agenciador
               tdId.innerHTML = casa.id
               tdEndereco.innerHTML= casa.endereco
               tdProprietario.innerHTML = casa.proprietario
+              tdAgenciador.innerHTML = casa.agenciador
               tdApagar.appendChild(btnApagar)
               btnApagar.innerHTML = "APAGAR"
               btnApagar.dataset.casa_id = casa.id
@@ -80,6 +90,7 @@
               trElement.appendChild(tdId)
               trElement.appendChild(tdEndereco)
               trElement.appendChild(tdProprietario)
+              trElement.appendChild(tdAgenciador)
               trElement.appendChild(tdApagar)
               tabelaCasas.appendChild(trElement)
             })
@@ -108,6 +119,28 @@
               option.value = proprietario.id
               option.innerHTML =  proprietario.email
               selectProprietarios.appendChild(option)
+            })
+         });
+        })
+  }
+
+  function listarAgenciadores(offset, limit){
+     fetch(`http://localhost/imobiliaria/backend/agenciador/offset=${offset}&limit=${limit}`, {
+            method: 'GET',
+            //body: JSON.stringify(myJson),
+            mode: 'no-cors',
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        .then(function (data) { 
+            return data.json().then(function(agenciadores) {
+            let selectAgenciadores = document.querySelector("#agenciadores")
+            agenciadores.dados.forEach(function(agenciador){
+              let option = document.createElement('option')
+              option.value = agenciador.id
+              option.innerHTML =  agenciador.email
+              selectAgenciadores.appendChild(option)
             })
          });
         })
@@ -143,10 +176,13 @@
      e.preventDefault()
       let myJson = {
               "endereco": "",
-              "proprietario_id" : "" 
+              "proprietario_id" : "",
+              "agenciador_id" : ""
       }
+
       myJson.endereco = this.endereco.value
       myJson.proprietario_id = this.proprietarios.value
+      myJson.agenciador_id = this.agenciadores.value
         
       //console.log(myJson)
       cadastrarImovel(myJson)

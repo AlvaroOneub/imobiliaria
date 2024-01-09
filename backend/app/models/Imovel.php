@@ -25,7 +25,9 @@ class Imovel extends Model{
     public function all($offset, $limit){
         $sqlTotal = $this->db->query("SELECT count(imoveis.id) as total
                        FROM imoveis
-                       INNER JOIN proprietarios ON proprietarios.id = imoveis.proprietario_id");
+                       INNER JOIN proprietarios ON proprietarios.id = imoveis.proprietario_id
+                       INNER JOIN agenciadores ON agenciadores.id = imoveis.agenciador_id
+                       ");
         $total = $sqlTotal->fetch(\PDO::FETCH_ASSOC);
         //$totalPages = $total['total'] / $limit;
         $paginas = QueryHelper::queryStringURL($total['total'], $offset, $limit);
@@ -33,12 +35,29 @@ class Imovel extends Model{
 
         $sql = "SELECT imoveis.id as id,
                        imoveis.endereco as endereco,
-                       proprietarios.email as proprietario
+                       proprietarios.email as proprietario,
+                       agenciadores.email as agenciador
                        FROM imoveis
-                       INNER JOIN proprietarios ON proprietarios.id = imoveis.proprietario_id LIMIT $limit OFFSET $offset";
+                       INNER JOIN proprietarios ON proprietarios.id = imoveis.proprietario_id
+                       INNER JOIN agenciadores ON agenciadores.id = imoveis.agenciador_id LIMIT $limit OFFSET $offset";
         $query = $this->db->query($sql);
         $dados['dados'] = $query->fetchAll(\PDO::FETCH_ASSOC);
         return array_merge($dados, $paginas);
+    }
+
+    public function listagemDesafio(){
+        $sql = "SELECT imoveis.id as id,
+                       imoveis.endereco as endereco,
+                       proprietarios.email as proprietario,
+                       agenciadores.email as agenciador,
+                       proprietarios.uf as uf_proprietario
+                       FROM imoveis
+                       INNER JOIN proprietarios ON proprietarios.id = imoveis.proprietario_id
+                       INNER JOIN agenciadores ON agenciadores.id = imoveis.agenciador_id 
+                       where imoveis.endereco like '%RJ%' and proprietarios.uf = 'SC'";
+        $query = $this->db->query($sql);
+        $dados['dados'] = $query->fetchAll(\PDO::FETCH_ASSOC);
+        return $dados;
     }
 
 }
